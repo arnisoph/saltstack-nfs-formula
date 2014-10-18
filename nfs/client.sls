@@ -1,10 +1,9 @@
+#!jinja|yaml
+
 {% from "nfs/defaults.yaml" import rawmap with context %}
 {% set datamap = salt['grains.filter_by'](rawmap, merge=salt['pillar.get']('nfs:lookup')) %}
 
-client:
+nfs_client:
   pkg:
     - installed
-    - pkgs:
-{% for pkg in datamap.client.pkgs %}
-      - {{ pkg }}
-{% endfor %}
+    - pkgs: {{ datamap.client.pkgs }}
