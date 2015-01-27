@@ -7,7 +7,6 @@ before_install:
   - curl -L http://bootstrap.saltstack.org | sudo sh -s -- git develop
 
 install:
-  # Copy these states
   - sudo mkdir -p /srv/salt/states
   - sudo cp -r . /srv/salt/states
   - sudo cp .travis/minion /etc/salt/minion
