@@ -27,6 +27,7 @@ build:
     - script:
         name: install salt
         code: |
+          cat /etc/apt/sources.list
           DEBIAN_FRONTEND=noninteractive apt-get -yV install python-pygit2 python-git git
           wget https://raw.githubusercontent.com/saltstack/salt-bootstrap/stable/bootstrap-salt.sh; bash ./bootstrap-salt.sh -Z -P -M git 96c4fb61b84db15caa3e99c8730a226681ddb411
     - script:
