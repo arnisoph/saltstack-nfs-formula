@@ -1,31 +1,8 @@
-# This references a standard debian container from the
-# Docker Hub https://registry.hub.docker.com/_/debian/
-# Read more about containers on our dev center
-# http://devcenter.wercker.com/docs/containers/index.html
-box: debian
-# You can also use services such as databases. Read more on our dev center:
-# http://devcenter.wercker.com/docs/services/index.html
-# services:
-    # - postgres
-    # http://devcenter.wercker.com/docs/services/postgresql.html
-
-    # - mongodb
-    # http://devcenter.wercker.com/docs/services/mongodb.html
-
-# This is the build pipeline. Pipelines are the core of wercker
-# Read more about pipelines on our dev center
-# http://devcenter.wercker.com/docs/pipelines/index.html
+box: debian:wheezy
 build:
-    # Steps make up the actions in your pipeline
-    # Read more about steps on our dev center:
-    # http://devcenter.wercker.com/docs/steps/index.html
   steps:
     - script:
-        name: echo
-        code: |
-          echo "hello world!"
-    - script:
-        name: install salt
+        name: prepare salt installation
         code: |
           cat > /etc/apt/sources.list << EOF
           deb http://httpredir.debian.org/debian jessie main non-free contrib
@@ -33,10 +10,11 @@ build:
           deb http://security.debian.org jessie/updates main non-free contrib
           EOF
           apt-get update
-          DEBIAN_FRONTEND=noninteractive apt-get -yV install python-git git wget tree apt-transport-https bind9-host
-          wget https://raw.githubusercontent.com/saltstack/salt-bootstrap/stable/bootstrap-salt.sh; bash ./bootstrap-salt.sh -Z -P -M git 96c4fb61b84db15caa3e99c8730a226681ddb411
+          DEBIAN_FRONTEND=noninteractive apt-get -yV install python-git git wget tree apt-transport-https bind9-host libpci3 pciutils curl
+    - script:
+        name: install salt
+        code: |
+          wget https://raw.githubusercontent.com/saltstack/salt-bootstrap/stable/bootstrap-salt.sh; bash ./bootstrap-salt.sh -Z -P -M -D git v2015.5.3
     - script:
         name: ls dir
         code: ls -la
-
-
