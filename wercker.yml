@@ -28,9 +28,9 @@ build:
         name: install salt
         code: |
           cat > /etc/apt/sources.list << EOF
-          deb http://httpredir.debian.org/debian jessie main nonfree contrib
-          deb http://httpredir.debian.org/debian jessie-updates main nonfree contrib
-          deb http://security.debian.org jessie/updates main nonfree contrib
+          deb http://httpredir.debian.org/debian jessie main non-free contrib
+          deb http://httpredir.debian.org/debian jessie-updates main non-free contrib
+          deb http://security.debian.org jessie/updates main non-free contrib
           EOF
           apt-get update
           DEBIAN_FRONTEND=noninteractive apt-get -yV install python-pygit2 python-git git
