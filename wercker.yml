@@ -25,6 +25,7 @@ build:
         name: prepare salt installation
         code: |
           yum -y install python-pygit2 gitpython git bzip2 curl rsync sudo unzip wget which tree bind-utils
+          yum -y swap -- remove systemd-container systemd-container-libs -- install systemd systemd-libs
     - script:
         name: install salt
         code: |
