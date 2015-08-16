@@ -18,7 +18,53 @@
 #    - script:
 #        name: ls dir
 #        code: ls -la
-box: centos:7.1.1503
+
+#box: centos:7.1.1503
+#build:
+#  steps:
+#    - script:
+#        name: prepare OS
+#        code: |
+#          if [[ -z $(which ed &>/dev/null) ]]; then
+#            yum -y install ed
+#          fi
+#          if [[ -e /etc/yum/pluginconf.d/fastestmirror.conf ]]; then
+#            ed -s /etc/yum/pluginconf.d/fastestmirror.conf <<< $',s/enabled=1/enabled=0/g\nw' \;
+#          fi
+#
+#          yum -y update
+#          yum clean all
+#          yum -y remove fakesystemd
+#          yum clean all
+#          yum -y install systemd
+#          yum clean all
+#          if [[ -e /lib/systemd/system/sysinit.target.wants/ ]]; then
+#            find /lib/systemd/system/sysinit.target.wants/ -type f -not -name systemd-tmpfiles-setup.service -print -delete
+#          fi
+#          rm -f /lib/systemd/system/multi-user.target.wants/*
+#          rm -f /etc/systemd/system/*.wants/*
+#          rm -f /lib/systemd/system/local-fs.target.wants/*
+#          rm -f /lib/systemd/system/sockets.target.wants/*udev*
+#          rm -f /lib/systemd/system/sockets.target.wants/*initctl*
+#          rm -f /lib/systemd/system/basic.target.wants/*
+#          rm -f /lib/systemd/system/anaconda.target.wants/*
+#
+#          #mkdir -p
+#
+#          #yum -y swap -- remove systemd-container systemd-container-libs -- install systemd systemd-libs
+#    - script:
+#        name: prepare salt installation
+#        code: |
+#          yum -y install python-pygit2 gitpython git bzip2 curl rsync sudo unzip wget which tree bind-utils
+#    - script:
+#        name: install salt
+#        code: |
+#          wget https://raw.githubusercontent.com/saltstack/salt-bootstrap/stable/bootstrap-salt.sh; bash ./bootstrap-salt.sh -Z -P -M git v2015.5.3
+#    - script:
+#        name: ls dir
+#        code: ls -la
+
+box: centos:6
 build:
   steps:
     - script:
@@ -31,22 +77,22 @@ build:
             ed -s /etc/yum/pluginconf.d/fastestmirror.conf <<< $',s/enabled=1/enabled=0/g\nw' \;
           fi
 
-          yum -y update
-          yum clean all
-          yum -y remove fakesystemd
-          yum clean all
-          yum -y install systemd
-          yum clean all
-          if [[ -e /lib/systemd/system/sysinit.target.wants/ ]]; then
-            find /lib/systemd/system/sysinit.target.wants/ -type f -not -name systemd-tmpfiles-setup.service -print -delete
-          fi
-          rm -f /lib/systemd/system/multi-user.target.wants/*
-          rm -f /etc/systemd/system/*.wants/*
-          rm -f /lib/systemd/system/local-fs.target.wants/*
-          rm -f /lib/systemd/system/sockets.target.wants/*udev*
-          rm -f /lib/systemd/system/sockets.target.wants/*initctl*
-          rm -f /lib/systemd/system/basic.target.wants/*
-          rm -f /lib/systemd/system/anaconda.target.wants/*
+          #yum -y update
+          #yum clean all
+          #yum -y remove fakesystemd
+          #yum clean all
+          #yum -y install systemd
+          #yum clean all
+          #if [[ -e /lib/systemd/system/sysinit.target.wants/ ]]; then
+          #  find /lib/systemd/system/sysinit.target.wants/ -type f -not -name systemd-tmpfiles-setup.service -print -delete
+          #fi
+          #rm -f /lib/systemd/system/multi-user.target.wants/*
+          #rm -f /etc/systemd/system/*.wants/*
+          #rm -f /lib/systemd/system/local-fs.target.wants/*
+          #rm -f /lib/systemd/system/sockets.target.wants/*udev*
+          #rm -f /lib/systemd/system/sockets.target.wants/*initctl*
+          #rm -f /lib/systemd/system/basic.target.wants/*
+          #rm -f /lib/systemd/system/anaconda.target.wants/*
 
           #mkdir -p
 
