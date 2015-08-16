@@ -33,7 +33,7 @@ build:
           deb http://security.debian.org jessie/updates main non-free contrib
           EOF
           apt-get update
-          DEBIAN_FRONTEND=noninteractive apt-get -yV install python-git git
+          DEBIAN_FRONTEND=noninteractive apt-get -yV install python-git git wget tree apt-transport-https bind9-host
           wget https://raw.githubusercontent.com/saltstack/salt-bootstrap/stable/bootstrap-salt.sh; bash ./bootstrap-salt.sh -Z -P -M git 96c4fb61b84db15caa3e99c8730a226681ddb411
     - script:
         name: ls dir
