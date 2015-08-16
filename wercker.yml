@@ -24,7 +24,7 @@ build:
     - script:
         name: prepare OS
         code: |
-          if [[ -z $(which ed &>/dev/null) ]]; then ed -s /etc/yum/pluginconf.d/fastestmirror.conf <<< $',s/enabled=1/enabled=0/g\nw' \; ; fi
+          if [[ -z $(which ed &>/dev/null) ]]; then yum -y install ed; fi
           if [[ -e /etc/yum/pluginconf.d/fastestmirror.conf ]]; then ed -s /etc/yum/pluginconf.d/fastestmirror.conf <<< $',s/enabled=1/enabled=0/g\nw' \; ; fi
           yum -y swap -- remove systemd-container systemd-container-libs -- install systemd systemd-libs
           yum -y remove fakesystemd
