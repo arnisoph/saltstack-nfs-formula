@@ -29,7 +29,7 @@ build:
 
           yum -y update
           yum clean all
-          yum -y --skip-broken install systemd
+          yum -y --skip-broken install systemd dbus
           yum clean all
           #yum -y remove fakesystemd
           find /lib/systemd/system/sysinit.target.wants/ -type f -not -name systemd-tmpfiles-setup.service -delete
