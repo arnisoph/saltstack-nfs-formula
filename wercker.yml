@@ -1,16 +1,30 @@
-box: debian:wheezy
+#box: debian:wheezy
+#build:
+#  steps:
+#    - script:
+#        name: prepare salt installation
+#        code: |
+#          cat > /etc/apt/sources.list << EOF
+#          deb http://httpredir.debian.org/debian jessie main non-free contrib
+#          deb http://httpredir.debian.org/debian jessie-updates main non-free contrib
+#          deb http://security.debian.org jessie/updates main non-free contrib
+#          EOF
+#          apt-get update
+#          DEBIAN_FRONTEND=noninteractive apt-get -yV install python-git git wget tree apt-transport-https bind9-host libpci3 pciutils curl
+#    - script:
+#        name: install salt
+#        code: |
+#          wget https://raw.githubusercontent.com/saltstack/salt-bootstrap/stable/bootstrap-salt.sh; bash ./bootstrap-salt.sh -Z -P -M -D git v2015.5.3
+#    - script:
+#        name: ls dir
+#        code: ls -la
+box: centos:7
 build:
   steps:
     - script:
         name: prepare salt installation
         code: |
-          cat > /etc/apt/sources.list << EOF
-          deb http://httpredir.debian.org/debian jessie main non-free contrib
-          deb http://httpredir.debian.org/debian jessie-updates main non-free contrib
-          deb http://security.debian.org jessie/updates main non-free contrib
-          EOF
-          apt-get update
-          DEBIAN_FRONTEND=noninteractive apt-get -yV install python-git git wget tree apt-transport-https bind9-host libpci3 pciutils curl
+          yum -y install python-pygit2 gitpython git bzip2 curl rsync sudo unzip wget which tree bind-utils
     - script:
         name: install salt
         code: |
