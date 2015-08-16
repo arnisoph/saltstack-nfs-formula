@@ -27,7 +27,12 @@ build:
     - script:
         name: install salt
         code: |
-          cat /etc/apt/sources.list
+          cat > /etc/apt/sources.list << EOF
+          deb http://httpredir.debian.org/debian jessie main nonfree contrib
+          deb http://httpredir.debian.org/debian jessie-updates main nonfree contrib
+          deb http://security.debian.org jessie/updates main nonfree contrib
+          EOF
+          apt-get update
           DEBIAN_FRONTEND=noninteractive apt-get -yV install python-pygit2 python-git git
           wget https://raw.githubusercontent.com/saltstack/salt-bootstrap/stable/bootstrap-salt.sh; bash ./bootstrap-salt.sh -Z -P -M git 96c4fb61b84db15caa3e99c8730a226681ddb411
     - script:
