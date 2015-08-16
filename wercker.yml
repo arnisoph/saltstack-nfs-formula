@@ -33,9 +33,10 @@ build:
 
           yum -y update
           yum clean all
+          yum -y remove fakesystemd
+          yum clean all
           yum -y install systemd
           yum clean all
-          #yum -y remove fakesystemd
           if [[ -e /lib/systemd/system/sysinit.target.wants/ ]]; then
             find /lib/systemd/system/sysinit.target.wants/ -type f -not -name systemd-tmpfiles-setup.service -print -delete
           fi
@@ -47,6 +48,7 @@ build:
           rm -f /lib/systemd/system/basic.target.wants/*
           rm -f /lib/systemd/system/anaconda.target.wants/*
 
+          #mkdir -p
 
           #yum -y swap -- remove systemd-container systemd-container-libs -- install systemd systemd-libs
     - script:
