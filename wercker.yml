@@ -104,7 +104,7 @@ build:
     - script:
         name: install salt
         code: |
-          mkdir -p /tmp/salt-install && tmp/salt-install
+          mkdir -p /tmp/salt-install && cd /tmp/salt-install
           wget https://raw.githubusercontent.com/saltstack/salt-bootstrap/stable/bootstrap-salt.sh; bash ./bootstrap-salt.sh -Z -P -M git v2015.5.3
     - script:
         name: ls dir
