@@ -18,7 +18,7 @@
 #    - script:
 #        name: ls dir
 #        code: ls -la
-box: centos:7
+box: centos:7.1.1503
 build:
   steps:
     - script:
@@ -37,7 +37,7 @@ build:
     - script:
         name: install salt
         code: |
-          wget https://raw.githubusercontent.com/saltstack/salt-bootstrap/stable/bootstrap-salt.sh; bash ./bootstrap-salt.sh -Z -P -M -D git v2015.5.3
+          wget https://raw.githubusercontent.com/saltstack/salt-bootstrap/stable/bootstrap-salt.sh; bash ./bootstrap-salt.sh -Z -P -M git v2015.5.3
     - script:
         name: ls dir
         code: ls -la
