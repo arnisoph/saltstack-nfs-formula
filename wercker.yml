@@ -27,17 +27,19 @@ build:
           if [[ -z $(which ed &>/dev/null) ]]; then yum -y install ed; fi
           if [[ -e /etc/yum/pluginconf.d/fastestmirror.conf ]]; then ed -s /etc/yum/pluginconf.d/fastestmirror.conf <<< $',s/enabled=1/enabled=0/g\nw' \; ; fi
 
-          yum -y update; yum clean all
-          yum -y --skip-broken install systemd; yum clean all;
+          yum -y update
+          yum clean all
+          yum -y --skip-broken install systemd
+          yum clean all
           #yum -y remove fakesystemd
-          (for i in /lib/systemd/system/sysinit.target.wants/*; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done)
-          rm -f /lib/systemd/system/multi-user.target.wants/*;
-          rm -f /etc/systemd/system/*.wants/*;
-          rm -f /lib/systemd/system/local-fs.target.wants/*;
-          rm -f /lib/systemd/system/sockets.target.wants/*udev*;
-          rm -f /lib/systemd/system/sockets.target.wants/*initctl*;
-          rm -f /lib/systemd/system/basic.target.wants/*;
-          rm -f /lib/systemd/system/anaconda.target.wants/*;
+          find /lib/systemd/system/sysinit.target.wants/ -type f -not -name systemd-tmpfiles-setup.service -delete
+          rm -f /lib/systemd/system/multi-user.target.wants/*
+          rm -f /etc/systemd/system/*.wants/*
+          rm -f /lib/systemd/system/local-fs.target.wants/*
+          rm -f /lib/systemd/system/sockets.target.wants/*udev*
+          rm -f /lib/systemd/system/sockets.target.wants/*initctl*
+          rm -f /lib/systemd/system/basic.target.wants/*
+          rm -f /lib/systemd/system/anaconda.target.wants/*
 
 
           #yum -y swap -- remove systemd-container systemd-container-libs -- install systemd systemd-libs
