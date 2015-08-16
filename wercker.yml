@@ -32,7 +32,7 @@ build:
           yum -y --skip-broken install systemd dbus
           yum clean all
           #yum -y remove fakesystemd
-          find /lib/systemd/system/sysinit.target.wants/ -type f -not -name systemd-tmpfiles-setup.service -delete
+          (find /lib/systemd/system/sysinit.target.wants/ -type f -not -name systemd-tmpfiles-setup.service -delete)
           rm -f /lib/systemd/system/multi-user.target.wants/*
           rm -f /etc/systemd/system/*.wants/*
           rm -f /lib/systemd/system/local-fs.target.wants/*
