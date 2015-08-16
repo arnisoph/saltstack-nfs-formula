@@ -24,15 +24,21 @@ build:
     - script:
         name: prepare OS
         code: |
-          if [[ -z $(which ed &>/dev/null) ]]; then yum -y install ed; fi
-          if [[ -e /etc/yum/pluginconf.d/fastestmirror.conf ]]; then ed -s /etc/yum/pluginconf.d/fastestmirror.conf <<< $',s/enabled=1/enabled=0/g\nw' \; ; fi
+          if [[ -z $(which ed &>/dev/null) ]]; then
+            yum -y install ed
+          fi
+          if [[ -e /etc/yum/pluginconf.d/fastestmirror.conf ]]; then
+            ed -s /etc/yum/pluginconf.d/fastestmirror.conf <<< $',s/enabled=1/enabled=0/g\nw' \;
+          fi
 
           yum -y update
           yum clean all
-          yum -y --skip-broken install systemd dbus
+          yum -y install systemd
           yum clean all
           #yum -y remove fakesystemd
-          (find /lib/systemd/system/sysinit.target.wants/ -type f -not -name systemd-tmpfiles-setup.service -delete)
+          if [[ -e /lib/systemd/system/sysinit.target.wants/ ]]; then
+            find /lib/systemd/system/sysinit.target.wants/ -type f -not -name systemd-tmpfiles-setup.service -delete
+          fi
           rm -f /lib/systemd/system/multi-user.target.wants/*
           rm -f /etc/systemd/system/*.wants/*
           rm -f /lib/systemd/system/local-fs.target.wants/*
