@@ -22,10 +22,12 @@ box: centos:7.1.1503
 build:
   steps:
     - script:
-        name: prepare salt installation
+        name: prepare OS
         code: |
-          yum -y install python-pygit2 gitpython git bzip2 curl rsync sudo unzip wget which tree bind-utils
+          if [[ -z $(which ed &>/dev/null) ]]; then ed -s /etc/yum/pluginconf.d/fastestmirror.conf <<< $',s/enabled=1/enabled=0/g\nw' \; ; fi
+          if [[ -e /etc/yum/pluginconf.d/fastestmirror.conf ]]; then ed -s /etc/yum/pluginconf.d/fastestmirror.conf <<< $',s/enabled=1/enabled=0/g\nw' \; ; fi
           yum -y swap -- remove systemd-container systemd-container-libs -- install systemd systemd-libs
+          yum -y remove fakesystemd
           #(cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == systemd-tmpfiles-setup.service ] || rm -f $i; done)
           rm -f /lib/systemd/system/multi-user.target.wants/*;
           rm -f /etc/systemd/system/*.wants/*;
@@ -34,6 +36,10 @@ build:
           rm -f /lib/systemd/system/sockets.target.wants/*initctl*;
           rm -f /lib/systemd/system/basic.target.wants/*;
           rm -f /lib/systemd/system/anaconda.target.wants/*;
+    - script:
+        name: prepare salt installation
+        code: |
+          yum -y install python-pygit2 gitpython git bzip2 curl rsync sudo unzip wget which tree bind-utils
     - script:
         name: install salt
         code: |
